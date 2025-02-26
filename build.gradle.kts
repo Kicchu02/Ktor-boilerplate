@@ -29,6 +29,7 @@ dependencies {
     testImplementation(libs.kotlin.test.junit)
 
     implementation("org.postgresql:postgresql:42.7.2")
+    implementation("com.zaxxer:HikariCP:5.0.1")
     jooqGenerator("org.postgresql:postgresql:42.7.2")
 }
 
