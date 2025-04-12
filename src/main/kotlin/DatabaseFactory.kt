@@ -40,8 +40,6 @@ object DatabaseFactory {
                     connection.rollback()
                 }
                 throw e
-            } finally {
-                connection.isReadOnly = false
             }
         }
     }
