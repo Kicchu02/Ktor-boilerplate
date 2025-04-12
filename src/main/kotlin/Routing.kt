@@ -4,10 +4,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import io.ktor.util.reflect.TypeInfo
 import java.util.UUID
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import `ktor-sample`.jooq.tables.references.USER
 
 fun Application.configureRouting() {
@@ -19,20 +16,36 @@ fun Application.configureRouting() {
                 val isActive: Boolean
             )
 
-            val users = withContext(Dispatchers.IO) {
-                DatabaseFactory.createDSLContext()
-                    .select(USER.ID, USER.EMAIL, USER.ISACTIVE)
+            val userIdToBeDeleted = UUID.randomUUID()
+            // Delete a user
+            DatabaseFactory.transaction { ctx ->
+                val numberOfRowsAffected = ctx.deleteFrom(USER)
+                    .where(
+                        USER.ID.eq(userIdToBeDeleted)
+                            .and(USER.ISACTIVE.eq(true))
+                    )
+                    .execute()
+                if (numberOfRowsAffected != 1) {
+                    throw Exception("Expected 1 row to be deleted, but $numberOfRowsAffected were deleted instead.")
+                }
+            }
+
+            val users = DatabaseFactory.transaction(isReadOnly = true) { ctx ->
+                ctx.select(USER.ID, USER.EMAIL, USER.ISACTIVE)
                     .from(USER)
                     .fetch()
                     .map {
                         UserResponse(
-                            id = it.get(USER.ID)!!,
-                            email = it.get(USER.EMAIL)!!,
-                            isActive = it.get(USER.ISACTIVE)!!
+                            id = it.getNonNullValue(USER.ID),
+                            email = it.getNonNullValue(USER.EMAIL),
+                            isActive = it.getNonNullValue(USER.ISACTIVE)
                         )
                     }
             }
 
+            call.request.headers.entries().forEach {
+                println("header item: ${it.key}, ${it.value}")
+            }
             call.respondText(users.toString())
         }
     }
