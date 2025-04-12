@@ -16,19 +16,19 @@ fun Application.configureRouting() {
                 val isActive: Boolean
             )
 
-            val userIdToBeDeleted = UUID.randomUUID()
-            // Delete a user
-            DatabaseFactory.transaction { ctx ->
-                val numberOfRowsAffected = ctx.deleteFrom(USER)
-                    .where(
-                        USER.ID.eq(userIdToBeDeleted)
-                            .and(USER.ISACTIVE.eq(true))
-                    )
-                    .execute()
-                if (numberOfRowsAffected != 1) {
-                    throw Exception("Expected 1 row to be deleted, but $numberOfRowsAffected were deleted instead.")
-                }
-            }
+//            val userIdToBeDeleted = UUID.randomUUID()
+//            // Delete a user
+//            DatabaseFactory.transaction { ctx ->
+//                val numberOfRowsAffected = ctx.deleteFrom(USER)
+//                    .where(
+//                        USER.ID.eq(userIdToBeDeleted)
+//                            .and(USER.ISACTIVE.eq(true))
+//                    )
+//                    .execute()
+//                if (numberOfRowsAffected != 1) {
+//                    throw Exception("Expected 1 row to be deleted, but $numberOfRowsAffected were deleted instead.")
+//                }
+//            }
 
             val users = DatabaseFactory.transaction(isReadOnly = true) { ctx ->
                 ctx.select(USER.ID, USER.EMAIL, USER.ISACTIVE)
