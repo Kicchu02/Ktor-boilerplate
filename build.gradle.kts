@@ -1,3 +1,24 @@
+import com.typesafe.config.Config
+import com.typesafe.config.ConfigFactory
+import java.io.File
+
+val config: Config = ConfigFactory.parseFile(File("configuration/application.conf"))
+val dbConfig: Config = config.getConfig("database")
+
+val dbHost: String = dbConfig.getString("host")
+val dbPort: Int = dbConfig.getInt("port")
+val dbName: String = dbConfig.getString("name")
+val dbUser: String = dbConfig.getString("userName")
+val dbPassword: String = dbConfig.getString("password")
+val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+
+
+buildscript {
+    dependencies {
+        classpath("com.typesafe:config:1.4.2")
+    }
+}
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.ktor)
@@ -37,9 +58,9 @@ dependencies {
 }
 
 flyway {
-    url = "jdbc:postgresql://localhost:5432/demo_db"
-    user = "admin"
-    password = "Demo@123"
+    url = dbUrl
+    user = dbUser
+    password = dbPassword
     schemas = arrayOf("public")
     locations = arrayOf("filesystem:src/main/resources/db/migration")
 }
@@ -52,9 +73,9 @@ jooq {
             jooqConfiguration.apply {
                 jdbc.apply {
                     driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://localhost:5432/demo_db"
-                    user = "admin"
-                    password = "Demo@123"
+                    url = dbUrl
+                    user = dbUser
+                    password = dbPassword
                 }
                 generator.apply {
                     name = "org.jooq.codegen.KotlinGenerator"
