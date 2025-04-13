@@ -2,9 +2,11 @@ package com.example
 
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory.parseFile
+import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
@@ -23,6 +25,9 @@ fun main(args: Array<String>) {
         install(Koin) {
             printLogger()
             modules(allModules)
+        }
+        install(ContentNegotiation) {
+            json()
         }
         DatabaseFactory.init()
         configureRouting()

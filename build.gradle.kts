@@ -58,6 +58,7 @@ dependencies {
     implementation("io.insert-koin:koin-logger-slf4j:3.5.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.1.0")
+    implementation("io.ktor:ktor-server-content-negotiation:3.1.0")
 }
 
 flyway {
