@@ -11,6 +11,6 @@ abstract class GetUsers : APIInterface<Request, Response> {
     data object Request : APIRequest
 
     data class Response(
-        val users: List<User>
+        val users: List<User>,
     ) : APIResponse
 }

@@ -3,14 +3,14 @@ package com.example
 import com.typesafe.config.Config
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
-import java.sql.Connection
-import javax.sql.DataSource
 import org.jooq.DSLContext
 import org.jooq.Record
 import org.jooq.TableField
 import org.jooq.impl.DSL
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.sql.Connection
+import javax.sql.DataSource
 
 object DatabaseFactory : KoinComponent {
     private val config by inject<Config>()
@@ -37,7 +37,7 @@ object DatabaseFactory : KoinComponent {
     fun <T> transaction(
         isReadOnly: Boolean = false,
         transactionIsolationLevel: Int = Connection.TRANSACTION_REPEATABLE_READ,
-        block: (DSLContext) -> T
+        block: (DSLContext) -> T,
     ): T {
         dataSource.connection.use { connection ->
             return try {

@@ -11,12 +11,12 @@ internal abstract class GetAllUsers : QueryInterface<Input, Result> {
     data class UserResponse(
         val id: UUID,
         val email: String,
-        val isActive: Boolean
+        val isActive: Boolean,
     )
 
     data object Input : QueryInput
 
     data class Result(
-        val users: List<UserResponse>
+        val users: List<UserResponse>,
     ) : QueryResult
 }

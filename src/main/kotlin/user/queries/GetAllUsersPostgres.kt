@@ -14,9 +14,9 @@ internal class GetAllUsersPostgres : GetAllUsers() {
                     UserResponse(
                         id = it.getNonNullValue(USER.ID),
                         email = it.getNonNullValue(USER.EMAIL),
-                        isActive = it.getNonNullValue(USER.ISACTIVE)
+                        isActive = it.getNonNullValue(USER.ISACTIVE),
                     )
-                }
+                },
         )
     }
 }

@@ -5,10 +5,10 @@ import com.typesafe.config.ConfigFactory.parseFile
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import java.io.File
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
+import java.io.File
 
 private lateinit var config: Config
 

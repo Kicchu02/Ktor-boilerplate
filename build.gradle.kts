@@ -12,7 +12,6 @@ val dbUser: String = dbConfig.getString("userName")
 val dbPassword: String = dbConfig.getString("password")
 val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
 
-
 buildscript {
     dependencies {
         classpath("com.typesafe:config:1.4.2")
@@ -24,6 +23,7 @@ plugins {
     alias(libs.plugins.ktor)
     id("org.flywaydb.flyway") version "9.22.0"
     id("nu.studer.jooq") version "8.2"
+    id("com.diffplug.spotless") version "6.25.0"
 }
 
 group = "com.example"
@@ -82,22 +82,42 @@ jooq {
                     database.apply {
                         name = "org.jooq.meta.postgres.PostgresDatabase"
                         inputSchema = "public"
-                        forcedTypes = listOf(
-                            org.jooq.meta.jaxb.ForcedType().apply {
-                                name = "Instant"
-                                includeTypes = "TIMESTAMPTZ|TIMESTAMP WITH TIME ZONE"
-                            }
-                        )
+                        forcedTypes =
+                            listOf(
+                                org.jooq.meta.jaxb.ForcedType().apply {
+                                    name = "Instant"
+                                    includeTypes = "TIMESTAMPTZ|TIMESTAMP WITH TIME ZONE"
+                                },
+                            )
                     }
                     generate.apply {
                         isPojos = true
                     }
                     target.apply {
                         packageName = "ktor-sample.jooq"
-                        directory = "${projectDir}/jooq/src"
+                        directory = "$projectDir/jooq/src"
                     }
                 }
             }
         }
+    }
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        targetExclude("build/**", "jooq/**")
+        ktlint("0.50.0")
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
+
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
     }
 }
