@@ -1,10 +1,9 @@
 package com.example.user.queries
 
-import com.example.QueryInterface
-import com.example.QueryInterface.QueryInput
-import com.example.QueryInterface.QueryResult
 import com.example.user.queries.GetAllUsers.Input
 import com.example.user.queries.GetAllUsers.Result
+import com.example.user.queries.QueryInterface.QueryInput
+import com.example.user.queries.QueryInterface.QueryResult
 import java.util.UUID
 
 internal abstract class GetAllUsers : QueryInterface<Input, Result> {

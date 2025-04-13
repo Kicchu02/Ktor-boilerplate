@@ -51,11 +51,11 @@ object DatabaseFactory : KoinComponent {
                     connection.commit()
                 }
                 result
-            } catch (e: Exception) {
+            } catch (exception: Exception) {
                 if (!isReadOnly) {
                     connection.rollback()
                 }
-                throw e
+                throw exception
             }
         }
     }
@@ -64,3 +64,5 @@ object DatabaseFactory : KoinComponent {
 fun <T : Any> Record.getNonNullValue(field: TableField<*, T?>): T {
     return this.get(field) ?: throw IllegalStateException("Field ${field.name} is unexpectedly null")
 }
+
+class DBException(message: String? = null) : RuntimeException(message)

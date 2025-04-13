@@ -8,5 +8,5 @@ interface APIInterface<Req : APIRequest, Res : APIResponse> {
 
     interface APIResponse
 
-    fun execute(request: Req): Res
+    suspend fun execute(request: Req): Res
 }
