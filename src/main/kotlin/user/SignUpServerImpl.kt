@@ -12,7 +12,7 @@ import java.security.SecureRandom
 import java.util.Base64
 import java.util.UUID
 
-class SignUpServerImpl : SignUp(), KoinComponent {
+internal class SignUpServerImpl : SignUp(), KoinComponent {
     private val insertIntoUser by inject<InsertIntoUser>()
     private val checkIfUserExistsByEmail by inject<CheckIfUserExistsByEmail>()
 
