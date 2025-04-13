@@ -19,7 +19,7 @@ object DatabaseFactory : KoinComponent {
     private val dbName = config.getString("database.name")
     private val dbUser = config.getString("database.userName")
     private val dbPassword = config.getString("database.password")
-    private val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/${dbName}_db"
+    private val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
     private lateinit var dataSource: DataSource
 
     fun init() {

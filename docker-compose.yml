@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   db:
     image: postgres:latest
@@ -6,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: Demo@123
-      POSTGRES_DB: demo_db
+      POSTGRES_DB: demo
     ports:
       - "5432:5432"
     volumes:
