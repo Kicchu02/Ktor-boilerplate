@@ -6,10 +6,10 @@ import com.example.user.SignUp.SignUpException.EmailAlreadyExistsException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
-import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.getKoin
 
 fun Application.configureRouting() {
@@ -20,7 +20,7 @@ fun Application.configureRouting() {
             try {
                 val request = call.receive<SignUp.Request>()
                 val response = signUp.execute(request = request)
-                call.respondText(Json.encodeToString(response))
+                call.respond(response)
             } catch (signUpException: SignUpException) {
                 when (signUpException) {
                     is EmailAlreadyExistsException -> {
