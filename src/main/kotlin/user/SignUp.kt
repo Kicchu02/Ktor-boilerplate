@@ -3,6 +3,7 @@ package com.example.user
 import com.example.APIInterface
 import com.example.APIInterface.APIRequest
 import com.example.APIInterface.APIResponse
+import com.example.dto.EmailId
 import com.example.dto.SerializerUtils.UUIDSerializer
 import com.example.user.SignUp.Request
 import com.example.user.SignUp.Response
@@ -12,7 +13,7 @@ import java.util.UUID
 abstract class SignUp : APIInterface<Request, Response> {
     @Serializable
     data class Request(
-        val emailId: String,
+        val emailId: EmailId,
         val password: String,
     ) : APIRequest
 

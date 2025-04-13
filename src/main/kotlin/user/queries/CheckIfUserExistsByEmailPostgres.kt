@@ -9,7 +9,7 @@ internal class CheckIfUserExistsByEmailPostgres : CheckIfUserExistsByEmail() {
             exists = ctx.fetchExists(
                 ctx.selectFrom(USER)
                     .where(
-                        USER.EMAIL.eq(input.emailId)
+                        USER.EMAIL.eq(input.emailId.emailId)
                             .and(USER.ISACTIVE.isTrue),
                     ),
             ),
