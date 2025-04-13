@@ -1,7 +1,7 @@
-package com.example.user.queries
+package com.example.queries
 
-import com.example.user.queries.QueryInterface.QueryInput
-import com.example.user.queries.QueryInterface.QueryResult
+import com.example.queries.QueryInterface.QueryInput
+import com.example.queries.QueryInterface.QueryResult
 import org.jooq.DSLContext
 
 interface QueryInterface<I : QueryInput, R : QueryResult> {

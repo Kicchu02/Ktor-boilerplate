@@ -1,4 +1,4 @@
-package com.example.user.queries
+package com.example.queries
 
 import com.example.DBException
 import `ktor-sample`.jooq.tables.references.USER

@@ -1,4 +1,4 @@
-package com.example.user.queries
+package com.example.queries
 
 import `ktor-sample`.jooq.tables.references.USER
 import org.jooq.DSLContext

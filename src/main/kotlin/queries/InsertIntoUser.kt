@@ -1,10 +1,10 @@
-package com.example.user.queries
+package com.example.queries
 
 import com.example.dto.EmailId
-import com.example.user.queries.InsertIntoUser.Input
-import com.example.user.queries.InsertIntoUser.Result
-import com.example.user.queries.QueryInterface.QueryInput
-import com.example.user.queries.QueryInterface.QueryResult
+import com.example.queries.InsertIntoUser.Input
+import com.example.queries.InsertIntoUser.Result
+import com.example.queries.QueryInterface.QueryInput
+import com.example.queries.QueryInterface.QueryResult
 import java.util.UUID
 
 internal abstract class InsertIntoUser : QueryInterface<Input, Result> {
