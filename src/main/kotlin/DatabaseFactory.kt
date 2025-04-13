@@ -16,15 +16,16 @@ object DatabaseFactory : KoinComponent {
     private val config by inject<Config>()
     private val dbHost = config.getString("database.host")
     private val dbPort = config.getString("database.port")
-    private val dbName = config.getString("database.userName")
+    private val dbName = config.getString("database.name")
+    private val dbUser = config.getString("database.userName")
     private val dbPassword = config.getString("database.password")
-    private val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+    private val dbUrl = "jdbc:postgresql://$dbHost:$dbPort/${dbName}_db"
     private lateinit var dataSource: DataSource
 
     fun init() {
         val config = HikariConfig().apply {
             jdbcUrl = dbUrl
-            username = dbName
+            username = dbUser
             password = dbPassword
             driverClassName = "org.postgresql.Driver"
             maximumPoolSize = 10

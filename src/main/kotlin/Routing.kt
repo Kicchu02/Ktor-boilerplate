@@ -5,6 +5,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
+import kotlinx.serialization.json.Json
 import org.koin.ktor.ext.getKoin
 
 fun Application.configureRouting() {
@@ -16,7 +17,8 @@ fun Application.configureRouting() {
         }
         get("/getUsers") {
             val users = getUsers.execute(request = GetUsers.Request)
-            call.respondText(users.toString())
+            val responseText = Json.encodeToString(users)
+            call.respondText(responseText)
         }
     }
 }
