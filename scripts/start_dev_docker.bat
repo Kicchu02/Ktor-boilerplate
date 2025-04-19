@@ -12,4 +12,3 @@ echo 📦 Generating Jooq code...
 call gradlew generateJooq
 
 echo ✅ Done!
-₹
