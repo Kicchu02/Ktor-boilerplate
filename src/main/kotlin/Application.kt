@@ -38,4 +38,4 @@ private val appModules = module {
     single<Config> { config }
 }
 
-private val allModules = appModules + routesModules + databaseModules
+private val allModules = appModules + routesModules + databaseModules + utilsModules

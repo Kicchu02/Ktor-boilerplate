@@ -15,7 +15,11 @@ abstract class SignUp : APIInterface<Request, Response> {
     data class Request(
         val emailId: EmailId,
         val password: String,
-    ) : APIRequest
+    ) : APIRequest {
+        init {
+            require(password.isNotBlank())
+        }
+    }
 
     @Serializable
     data class Response(
