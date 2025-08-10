@@ -2,6 +2,8 @@ package com.example
 
 import com.example.note.CreateNote
 import com.example.note.CreateNote.CreateNoteException
+import com.example.user.DeleteNote
+import com.example.user.DeleteNote.DeleteNoteException
 import com.example.user.DummyApi
 import com.example.user.SignIn
 import com.example.user.SignIn.SignInException
@@ -12,6 +14,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
+import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
@@ -73,6 +76,23 @@ fun Application.configureRouting() {
                     is CreateNoteException.DuplicateTitleException -> {
                         call.response.status(value = HttpStatusCode.Conflict)
                         call.respondText(text = "Note title already exists.")
+                    }
+                }
+            }
+        }
+
+        // Delete Note endpoint
+        delete("/note") {
+            try {
+                val response = call.executeAuthenticated<DeleteNote, DeleteNote.Request, DeleteNote.Response>(
+                    request = call.receive<DeleteNote.Request>(),
+                )
+                call.respond(message = response)
+            } catch (exception: DeleteNoteException) {
+                when (exception) {
+                    is DeleteNoteException.NoteNotFound -> {
+                        call.response.status(value = HttpStatusCode.NotFound)
+                        call.respondText(text = "Note not found.")
                     }
                 }
             }
