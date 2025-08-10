@@ -16,6 +16,8 @@ import com.example.queries.InsertIntoWT
 import com.example.queries.InsertIntoWTPostgres
 import com.example.queries.UpdateWTExpireTime
 import com.example.queries.UpdateWTExpireTimePostgres
+import com.example.user.DummyApi
+import com.example.user.DummyApiServerImpl
 import com.example.user.PasswordUtils
 import com.example.user.SignIn
 import com.example.user.SignInServerImpl
@@ -23,13 +25,14 @@ import com.example.user.SignUp
 import com.example.user.SignUpServerImpl
 import com.example.user.ValidateWT
 import com.example.user.ValidateWTServerImpl
-import io.ktor.server.routing.RoutingCall
+import io.ktor.server.application.ApplicationCall
 import org.koin.dsl.module
 
 val routesModules = module {
     single<SignUp> { SignUpServerImpl() }
     single<ValidateWT> { ValidateWTServerImpl() }
-    factory<SignIn> { (call: RoutingCall) -> SignInServerImpl(call = call) }
+    factory<SignIn> { (call: ApplicationCall) -> SignInServerImpl(call = call) }
+    factory<DummyApi> { (userId: java.util.UUID) -> DummyApiServerImpl(userId = userId) }
 }
 
 val databaseModules = module {

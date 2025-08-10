@@ -9,7 +9,6 @@ import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
-import org.koin.ktor.plugin.Koin
 import java.io.File
 
 private lateinit var config: Config
@@ -21,12 +20,8 @@ fun main(args: Array<String>) {
         modules(allModules)
     }
 
-    embeddedServer(Netty, port = 8080) {
-        install(Koin) {
-            printLogger()
-            modules(allModules)
-        }
-        install(ContentNegotiation) {
+    embeddedServer(factory = Netty, port = 8080) {
+        install(plugin = ContentNegotiation) {
             json()
         }
         DatabaseFactory.init()

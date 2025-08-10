@@ -9,14 +9,14 @@ import com.example.user.SignIn.SignInException.InvalidEmailId
 import com.example.user.SignIn.SignInException.InvalidPassword
 import com.typesafe.config.Config
 import io.ktor.http.Cookie
-import io.ktor.server.routing.RoutingCall
+import io.ktor.server.application.ApplicationCall
 import org.jooq.DSLContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.time.Instant
 import java.util.UUID
 
-internal class SignInServerImpl(private val call: RoutingCall) : SignIn(), KoinComponent {
+internal class SignInServerImpl(private val call: ApplicationCall) : SignIn(), KoinComponent {
     private val config by inject<Config>()
     private val expirationDurationInSeconds = config.getLong("token.expirationDurationInSeconds")
     private val checkIfUserExistsByEmail by inject<CheckIfUserExistsByEmail>()
