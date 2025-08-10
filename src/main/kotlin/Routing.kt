@@ -4,6 +4,7 @@ import com.example.note.CreateNote
 import com.example.note.CreateNote.CreateNoteException
 import com.example.note.GetNote
 import com.example.note.GetNote.GetNoteException
+import com.example.note.GetNotes
 import com.example.note.UpdateNote
 import com.example.note.UpdateNote.UpdateNoteException
 import com.example.user.DeleteNote
@@ -139,6 +140,14 @@ fun Application.configureRouting() {
                     }
                 }
             }
+        }
+
+        // List Notes endpoint
+        get("/notes") {
+            val response = call.executeAuthenticated<GetNotes, GetNotes.Request, GetNotes.Response>(
+                request = GetNotes.Request,
+            )
+            call.respond(message = response)
         }
     }
 }
