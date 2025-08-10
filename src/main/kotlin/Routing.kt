@@ -2,6 +2,8 @@ package com.example
 
 import com.example.note.CreateNote
 import com.example.note.CreateNote.CreateNoteException
+import com.example.note.UpdateNote
+import com.example.note.UpdateNote.UpdateNoteException
 import com.example.user.DeleteNote
 import com.example.user.DeleteNote.DeleteNoteException
 import com.example.user.DummyApi
@@ -17,6 +19,7 @@ import io.ktor.server.response.respondText
 import io.ktor.server.routing.delete
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
+import io.ktor.server.routing.put
 import io.ktor.server.routing.routing
 
 fun Application.configureRouting() {
@@ -91,6 +94,27 @@ fun Application.configureRouting() {
             } catch (exception: DeleteNoteException) {
                 when (exception) {
                     is DeleteNoteException.NoteNotFound -> {
+                        call.response.status(value = HttpStatusCode.NotFound)
+                        call.respondText(text = "Note not found.")
+                    }
+                }
+            }
+        }
+
+        // Update Note endpoint
+        put("/note") {
+            try {
+                val response = call.executeAuthenticated<UpdateNote, UpdateNote.Request, UpdateNote.Response>(
+                    request = call.receive<UpdateNote.Request>(),
+                )
+                call.respond(message = response)
+            } catch (exception: UpdateNoteException) {
+                when (exception) {
+                    is UpdateNoteException.DuplicateTitleException -> {
+                        call.response.status(value = HttpStatusCode.Conflict)
+                        call.respondText(text = "Note title already exists.")
+                    }
+                    is UpdateNoteException.NoteNotFound -> {
                         call.response.status(value = HttpStatusCode.NotFound)
                         call.respondText(text = "Note not found.")
                     }

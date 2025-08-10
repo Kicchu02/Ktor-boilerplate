@@ -2,9 +2,13 @@ package com.example
 
 import com.example.note.CreateNote
 import com.example.note.CreateNoteServerImpl
+import com.example.note.UpdateNote
+import com.example.note.UpdateNoteServerImpl
 import com.example.queries.CheckIfNoteExists
 import com.example.queries.CheckIfNoteExistsPostgres
 import com.example.queries.CheckIfNoteTitleExists
+import com.example.queries.CheckIfNoteTitleExistsForAnotherNote
+import com.example.queries.CheckIfNoteTitleExistsForAnotherNotePostgres
 import com.example.queries.CheckIfNoteTitleExistsPostgres
 import com.example.queries.CheckIfUserExistsByEmail
 import com.example.queries.CheckIfUserExistsByEmailPostgres
@@ -24,6 +28,8 @@ import com.example.queries.InsertIntoUser
 import com.example.queries.InsertIntoUserPostgres
 import com.example.queries.InsertIntoWT
 import com.example.queries.InsertIntoWTPostgres
+import com.example.queries.UpdateNoteRecord
+import com.example.queries.UpdateNoteRecordPostgres
 import com.example.queries.UpdateWTExpireTime
 import com.example.queries.UpdateWTExpireTimePostgres
 import com.example.user.DeleteNote
@@ -46,6 +52,7 @@ val routesModules = module {
     factory<SignIn> { (call: ApplicationCall) -> SignInServerImpl(call = call) }
     factory<DummyApi> { (userId: java.util.UUID) -> DummyApiServerImpl(userId = userId) }
     factory<CreateNote> { (userId: java.util.UUID) -> CreateNoteServerImpl(userId = userId) }
+    factory<UpdateNote> { (userId: java.util.UUID) -> UpdateNoteServerImpl(userId = userId) }
     factory<DeleteNote> { (userId: java.util.UUID) -> DeleteNoteServerImpl(userId = userId) }
 }
 
@@ -62,6 +69,8 @@ val databaseModules = module {
     single<InsertIntoNote> { InsertIntoNotePostgres() }
     single<DeleteNoteRecord> { DeleteNoteRecordPostgres() }
     single<CheckIfNoteExists> { CheckIfNoteExistsPostgres() }
+    single<UpdateNoteRecord> { UpdateNoteRecordPostgres() }
+    single<CheckIfNoteTitleExistsForAnotherNote> { CheckIfNoteTitleExistsForAnotherNotePostgres() }
 }
 
 val utilsModules = module {
