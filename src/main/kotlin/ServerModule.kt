@@ -1,5 +1,9 @@
 package com.example
 
+import com.example.note.CreateNote
+import com.example.note.CreateNoteServerImpl
+import com.example.queries.CheckIfNoteTitleExists
+import com.example.queries.CheckIfNoteTitleExistsPostgres
 import com.example.queries.CheckIfUserExistsByEmail
 import com.example.queries.CheckIfUserExistsByEmailPostgres
 import com.example.queries.FetchPrivilegesOfUser
@@ -10,6 +14,8 @@ import com.example.queries.GetPasswordAndSaltByUserId
 import com.example.queries.GetPasswordAndSaltByUserIdPostgres
 import com.example.queries.GetUserIdByEmail
 import com.example.queries.GetUserIdByEmailPostgres
+import com.example.queries.InsertIntoNote
+import com.example.queries.InsertIntoNotePostgres
 import com.example.queries.InsertIntoUser
 import com.example.queries.InsertIntoUserPostgres
 import com.example.queries.InsertIntoWT
@@ -33,6 +39,7 @@ val routesModules = module {
     single<ValidateWT> { ValidateWTServerImpl() }
     factory<SignIn> { (call: ApplicationCall) -> SignInServerImpl(call = call) }
     factory<DummyApi> { (userId: java.util.UUID) -> DummyApiServerImpl(userId = userId) }
+    factory<CreateNote> { (userId: java.util.UUID) -> CreateNoteServerImpl(userId = userId) }
 }
 
 val databaseModules = module {
@@ -44,6 +51,8 @@ val databaseModules = module {
     single<InsertIntoWT> { InsertIntoWTPostgres() }
     single<GetPasswordAndSaltByUserId> { GetPasswordAndSaltByUserIdPostgres() }
     single<GetUserIdByEmail> { GetUserIdByEmailPostgres() }
+    single<CheckIfNoteTitleExists> { CheckIfNoteTitleExistsPostgres() }
+    single<InsertIntoNote> { InsertIntoNotePostgres() }
 }
 
 val utilsModules = module {

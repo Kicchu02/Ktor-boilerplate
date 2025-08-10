@@ -1,5 +1,7 @@
 package com.example
 
+import com.example.note.CreateNote
+import com.example.note.CreateNote.CreateNoteException
 import com.example.user.DummyApi
 import com.example.user.SignIn
 import com.example.user.SignIn.SignInException
@@ -57,6 +59,23 @@ fun Application.configureRouting() {
             val dummy = call.inject<DummyApi>(validated.userId)
             val response = dummy.execute(request = DummyApi.Request)
             call.respond(message = response)
+        }
+
+        // Create Note endpoint
+        post("/note") {
+            try {
+                val response = call.executeAuthenticated<CreateNote, CreateNote.Request, CreateNote.Response>(
+                    request = call.receive<CreateNote.Request>(),
+                )
+                call.respond(message = response)
+            } catch (exception: CreateNoteException) {
+                when (exception) {
+                    is CreateNoteException.DuplicateTitleException -> {
+                        call.response.status(value = HttpStatusCode.Conflict)
+                        call.respondText(text = "Note title already exists.")
+                    }
+                }
+            }
         }
     }
 }
