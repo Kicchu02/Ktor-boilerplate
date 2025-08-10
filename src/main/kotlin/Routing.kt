@@ -2,6 +2,8 @@ package com.example
 
 import com.example.note.CreateNote
 import com.example.note.CreateNote.CreateNoteException
+import com.example.note.GetNote
+import com.example.note.GetNote.GetNoteException
 import com.example.note.UpdateNote
 import com.example.note.UpdateNote.UpdateNoteException
 import com.example.user.DeleteNote
@@ -115,6 +117,23 @@ fun Application.configureRouting() {
                         call.respondText(text = "Note title already exists.")
                     }
                     is UpdateNoteException.NoteNotFound -> {
+                        call.response.status(value = HttpStatusCode.NotFound)
+                        call.respondText(text = "Note not found.")
+                    }
+                }
+            }
+        }
+
+        // Get Note endpoint
+        get("/note") {
+            try {
+                val response = call.executeAuthenticated<GetNote, GetNote.Request, GetNote.Response>(
+                    request = call.receive<GetNote.Request>(),
+                )
+                call.respond(message = response)
+            } catch (exception: GetNoteException) {
+                when (exception) {
+                    is GetNoteException.NoteNotFound -> {
                         call.response.status(value = HttpStatusCode.NotFound)
                         call.respondText(text = "Note not found.")
                     }

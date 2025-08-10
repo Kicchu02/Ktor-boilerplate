@@ -6,6 +6,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.time.Instant
 import java.util.UUID
 
 class SerializerUtils {
@@ -19,6 +20,19 @@ class SerializerUtils {
 
         override fun deserialize(decoder: Decoder): UUID {
             return UUID.fromString(decoder.decodeString())
+        }
+    }
+
+    object InstantSerializer : KSerializer<Instant> {
+        override val descriptor: SerialDescriptor =
+            PrimitiveSerialDescriptor("Instant", PrimitiveKind.STRING)
+
+        override fun serialize(encoder: Encoder, value: Instant) {
+            encoder.encodeString(value.toString())
+        }
+
+        override fun deserialize(decoder: Decoder): Instant {
+            return Instant.parse(decoder.decodeString())
         }
     }
 }

@@ -2,6 +2,8 @@ package com.example
 
 import com.example.note.CreateNote
 import com.example.note.CreateNoteServerImpl
+import com.example.note.GetNote
+import com.example.note.GetNoteServerImpl
 import com.example.note.UpdateNote
 import com.example.note.UpdateNoteServerImpl
 import com.example.queries.CheckIfNoteExists
@@ -14,6 +16,8 @@ import com.example.queries.CheckIfUserExistsByEmail
 import com.example.queries.CheckIfUserExistsByEmailPostgres
 import com.example.queries.DeleteNoteRecord
 import com.example.queries.DeleteNoteRecordPostgres
+import com.example.queries.FetchNoteDetails
+import com.example.queries.FetchNoteDetailsPostgres
 import com.example.queries.FetchPrivilegesOfUser
 import com.example.queries.FetchPrivilegesOfUserPostgres
 import com.example.queries.FetchWTExpiresAtAndUserIdOrNull
@@ -54,6 +58,7 @@ val routesModules = module {
     factory<CreateNote> { (userId: java.util.UUID) -> CreateNoteServerImpl(userId = userId) }
     factory<UpdateNote> { (userId: java.util.UUID) -> UpdateNoteServerImpl(userId = userId) }
     factory<DeleteNote> { (userId: java.util.UUID) -> DeleteNoteServerImpl(userId = userId) }
+    factory<GetNote> { (userId: java.util.UUID) -> GetNoteServerImpl(userId = userId) }
 }
 
 val databaseModules = module {
@@ -71,6 +76,7 @@ val databaseModules = module {
     single<CheckIfNoteExists> { CheckIfNoteExistsPostgres() }
     single<UpdateNoteRecord> { UpdateNoteRecordPostgres() }
     single<CheckIfNoteTitleExistsForAnotherNote> { CheckIfNoteTitleExistsForAnotherNotePostgres() }
+    single<FetchNoteDetails> { FetchNoteDetailsPostgres() }
 }
 
 val utilsModules = module {
