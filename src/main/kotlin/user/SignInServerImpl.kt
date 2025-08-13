@@ -5,8 +5,9 @@ import com.example.queries.abstractQueries.CheckIfUserExistsByEmail
 import com.example.queries.abstractQueries.GetPasswordAndSaltByUserId
 import com.example.queries.abstractQueries.GetUserIdByEmail
 import com.example.queries.abstractQueries.InsertIntoWT
-import com.example.user.SignIn.SignInException.InvalidEmailId
-import com.example.user.SignIn.SignInException.InvalidPassword
+import com.example.user.apiInterfaces.SignIn
+import com.example.user.apiInterfaces.SignIn.SignInException.InvalidEmailId
+import com.example.user.apiInterfaces.SignIn.SignInException.InvalidPassword
 import com.typesafe.config.Config
 import io.ktor.http.Cookie
 import io.ktor.server.application.ApplicationCall

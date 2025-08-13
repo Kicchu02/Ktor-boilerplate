@@ -4,7 +4,7 @@ import com.example.dto.UserIdentity
 import com.example.interfaces.APIInterface
 import com.example.interfaces.APIInterface.APIRequest
 import com.example.interfaces.APIInterface.APIResponse
-import com.example.user.ValidateWT
+import com.example.user.apiInterfaces.ValidateWT
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respondText

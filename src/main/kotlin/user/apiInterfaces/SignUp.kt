@@ -1,12 +1,12 @@
-package com.example.user
+package com.example.user.apiInterfaces
 
 import com.example.dto.EmailId
 import com.example.dto.SerializerUtils.UUIDSerializer
 import com.example.interfaces.APIInterface
 import com.example.interfaces.APIInterface.APIRequest
 import com.example.interfaces.APIInterface.APIResponse
-import com.example.user.SignUp.Request
-import com.example.user.SignUp.Response
+import com.example.user.apiInterfaces.SignUp.Request
+import com.example.user.apiInterfaces.SignUp.Response
 import kotlinx.serialization.Serializable
 import java.util.UUID
 

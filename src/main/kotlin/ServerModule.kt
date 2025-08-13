@@ -1,8 +1,8 @@
 package com.example
 
 import com.example.dto.UserIdentity
-import com.example.dummy.DummyApi
 import com.example.dummy.DummyApiServerImpl
+import com.example.dummy.apiInterfaces.DummyApi
 import com.example.queries.abstractQueries.CheckIfUserExistsByEmail
 import com.example.queries.abstractQueries.FetchPrivilegesOfUser
 import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull
@@ -20,12 +20,12 @@ import com.example.queries.postgreSQL.InsertIntoUserPostgres
 import com.example.queries.postgreSQL.InsertIntoWTPostgres
 import com.example.queries.postgreSQL.UpdateWTExpireTimePostgres
 import com.example.user.PasswordUtils
-import com.example.user.SignIn
 import com.example.user.SignInServerImpl
-import com.example.user.SignUp
 import com.example.user.SignUpServerImpl
-import com.example.user.ValidateWT
 import com.example.user.ValidateWTServerImpl
+import com.example.user.apiInterfaces.SignIn
+import com.example.user.apiInterfaces.SignUp
+import com.example.user.apiInterfaces.ValidateWT
 import io.ktor.server.application.ApplicationCall
 import org.koin.dsl.module
 

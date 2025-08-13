@@ -5,7 +5,8 @@ import com.example.dto.UserIdentity
 import com.example.queries.abstractQueries.FetchPrivilegesOfUser
 import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull
 import com.example.queries.abstractQueries.UpdateWTExpireTime
-import com.example.user.ValidateWT.ValidateWTException.InvalidWTException
+import com.example.user.apiInterfaces.ValidateWT
+import com.example.user.apiInterfaces.ValidateWT.ValidateWTException.InvalidWTException
 import com.typesafe.config.Config
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
