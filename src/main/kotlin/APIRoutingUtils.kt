@@ -12,9 +12,9 @@ import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
 import java.util.UUID
 
-inline fun <reified T> ApplicationCall.inject(): T = GlobalContext.get().get()
+inline fun <reified T> inject(): T = GlobalContext.get().get()
 
-inline fun <reified T> ApplicationCall.inject(vararg params: Any?): T =
+inline fun <reified T> inject(vararg params: Any?): T =
     GlobalContext.get().get { parametersOf(*params) }
 
 suspend fun ApplicationCall.requireWebToken(): UUID {

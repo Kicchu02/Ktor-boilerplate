@@ -18,7 +18,7 @@ fun Application.configureRouting() {
     routing {
         post("/signUp") {
             try {
-                val signUp = call.inject<SignUp>()
+                val signUp = inject<SignUp>()
                 val request = call.receive<SignUp.Request>()
                 val response = signUp.execute(request = request)
                 call.respond(response)
@@ -38,7 +38,7 @@ fun Application.configureRouting() {
         }
         post("/signIn") {
             try {
-                val signIn = call.inject<SignIn>(call)
+                val signIn = inject<SignIn>(call)
                 val request = call.receive<SignIn.Request>()
                 val response = signIn.execute(request = request)
                 call.respond(message = response)
