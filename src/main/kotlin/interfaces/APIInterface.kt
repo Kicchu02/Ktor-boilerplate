@@ -1,7 +1,7 @@
-package com.example
+package com.example.interfaces
 
-import com.example.APIInterface.APIRequest
-import com.example.APIInterface.APIResponse
+import com.example.interfaces.APIInterface.APIRequest
+import com.example.interfaces.APIInterface.APIResponse
 
 interface APIInterface<Req : APIRequest, Res : APIResponse> {
     interface APIRequest

@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.user.DummyApi
+import com.example.dummy.DummyApi
 import com.example.user.SignIn
 import com.example.user.SignIn.SignInException
 import com.example.user.SignUp

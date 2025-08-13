@@ -1,6 +1,7 @@
-package com.example.queries
+package com.example.queries.postgreSQL
 
 import com.example.getNonNullValue
+import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull
 import `ktor-sample`.jooq.tables.references.WEBTOKEN
 import org.jooq.DSLContext
 

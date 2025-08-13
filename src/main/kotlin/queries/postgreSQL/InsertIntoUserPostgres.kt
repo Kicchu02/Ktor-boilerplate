@@ -1,6 +1,7 @@
-package com.example.queries
+package com.example.queries.postgreSQL
 
 import com.example.DBException
+import com.example.queries.abstractQueries.InsertIntoUser
 import `ktor-sample`.jooq.tables.references.USER
 import org.jooq.DSLContext
 

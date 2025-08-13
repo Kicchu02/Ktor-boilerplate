@@ -1,8 +1,9 @@
 package com.example
 
-import com.example.APIInterface.APIRequest
-import com.example.APIInterface.APIResponse
 import com.example.dto.UserIdentity
+import com.example.interfaces.APIInterface
+import com.example.interfaces.APIInterface.APIRequest
+import com.example.interfaces.APIInterface.APIResponse
 import com.example.user.ValidateWT
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall

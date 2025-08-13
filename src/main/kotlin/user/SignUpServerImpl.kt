@@ -1,8 +1,8 @@
 package com.example.user
 
 import com.example.DatabaseFactory
-import com.example.queries.CheckIfUserExistsByEmail
-import com.example.queries.InsertIntoUser
+import com.example.queries.abstractQueries.CheckIfUserExistsByEmail
+import com.example.queries.abstractQueries.InsertIntoUser
 import com.example.user.SignUp.SignUpException.EmailAlreadyExistsException
 import org.jooq.DSLContext
 import org.koin.core.component.KoinComponent

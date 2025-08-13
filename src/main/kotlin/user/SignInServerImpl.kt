@@ -1,10 +1,10 @@
 package com.example.user
 
 import com.example.DatabaseFactory
-import com.example.queries.CheckIfUserExistsByEmail
-import com.example.queries.GetPasswordAndSaltByUserId
-import com.example.queries.GetUserIdByEmail
-import com.example.queries.InsertIntoWT
+import com.example.queries.abstractQueries.CheckIfUserExistsByEmail
+import com.example.queries.abstractQueries.GetPasswordAndSaltByUserId
+import com.example.queries.abstractQueries.GetUserIdByEmail
+import com.example.queries.abstractQueries.InsertIntoWT
 import com.example.user.SignIn.SignInException.InvalidEmailId
 import com.example.user.SignIn.SignInException.InvalidPassword
 import com.typesafe.config.Config

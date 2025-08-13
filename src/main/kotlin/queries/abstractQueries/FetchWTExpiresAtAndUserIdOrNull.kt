@@ -1,9 +1,10 @@
-package com.example.queries
+package com.example.queries.abstractQueries
 
-import com.example.queries.FetchWTExpiresAtAndUserIdOrNull.Input
-import com.example.queries.FetchWTExpiresAtAndUserIdOrNull.Result
-import com.example.queries.QueryInterface.QueryInput
-import com.example.queries.QueryInterface.QueryResult
+import com.example.interfaces.QueryInterface
+import com.example.interfaces.QueryInterface.QueryInput
+import com.example.interfaces.QueryInterface.QueryResult
+import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull.Input
+import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull.Result
 import java.time.Instant
 import java.util.UUID
 

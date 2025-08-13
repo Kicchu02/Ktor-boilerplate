@@ -1,5 +1,6 @@
-package com.example.queries
+package com.example.queries.postgreSQL
 
+import com.example.queries.abstractQueries.CheckIfUserExistsByEmail
 import `ktor-sample`.jooq.tables.references.USER
 import org.jooq.DSLContext
 

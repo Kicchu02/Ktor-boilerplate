@@ -1,4 +1,4 @@
-package com.example.user
+package com.example.dummy
 
 import com.example.dto.UserIdentity
 import org.koin.core.component.KoinComponent

@@ -2,9 +2,9 @@ package com.example.user
 
 import com.example.DatabaseFactory
 import com.example.dto.UserIdentity
-import com.example.queries.FetchPrivilegesOfUser
-import com.example.queries.FetchWTExpiresAtAndUserIdOrNull
-import com.example.queries.UpdateWTExpireTime
+import com.example.queries.abstractQueries.FetchPrivilegesOfUser
+import com.example.queries.abstractQueries.FetchWTExpiresAtAndUserIdOrNull
+import com.example.queries.abstractQueries.UpdateWTExpireTime
 import com.example.user.ValidateWT.ValidateWTException.InvalidWTException
 import com.typesafe.config.Config
 import org.koin.core.component.KoinComponent

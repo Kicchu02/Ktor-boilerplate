@@ -1,6 +1,7 @@
-package com.example.queries
+package com.example.queries.postgreSQL
 
 import com.example.getNonNullValue
+import com.example.queries.abstractQueries.FetchPrivilegesOfUser
 import `ktor-sample`.jooq.tables.references.PRIVILEGE
 import `ktor-sample`.jooq.tables.references.USER
 import `ktor-sample`.jooq.tables.references.USERROLE
