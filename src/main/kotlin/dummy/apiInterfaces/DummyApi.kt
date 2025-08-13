@@ -6,6 +6,7 @@ import com.example.interfaces.APIInterface
 import kotlinx.serialization.Serializable
 
 abstract class DummyApi : APIInterface<Request, Response> {
+    @Serializable
     data object Request : APIInterface.APIRequest
 
     @Serializable
