@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.dto.UserIdentity
 import com.example.queries.CheckIfUserExistsByEmail
 import com.example.queries.CheckIfUserExistsByEmailPostgres
 import com.example.queries.FetchPrivilegesOfUser
@@ -32,7 +33,7 @@ val routesModules = module {
     single<SignUp> { SignUpServerImpl() }
     single<ValidateWT> { ValidateWTServerImpl() }
     factory<SignIn> { (call: ApplicationCall) -> SignInServerImpl(call = call) }
-    factory<DummyApi> { (userId: java.util.UUID) -> DummyApiServerImpl(userId = userId) }
+    factory<DummyApi> { (userIdentity: UserIdentity) -> DummyApiServerImpl(userIdentity = userIdentity) }
 }
 
 val databaseModules = module {

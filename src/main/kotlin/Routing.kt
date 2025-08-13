@@ -28,6 +28,11 @@ fun Application.configureRouting() {
                         call.response.status(value = HttpStatusCode.Conflict)
                         call.respondText(text = "Email already exists.")
                     }
+
+                    is SignUpException.InsecurePasswordException -> {
+                        call.response.status(value = HttpStatusCode.BadRequest)
+                        call.respondText(text = "Password is insecure.")
+                    }
                 }
             }
         }
@@ -53,9 +58,9 @@ fun Application.configureRouting() {
         }
         // Authenticated dummy API example
         get("/dummy") {
-            val validated = call.validateAndGetUser()
-            val dummy = call.inject<DummyApi>(validated.userId)
-            val response = dummy.execute(request = DummyApi.Request)
+            val response = call.executeAuthenticated<DummyApi, DummyApi.Request, DummyApi.Response>(
+                request = call.receive<DummyApi.Request>(),
+            )
             call.respond(message = response)
         }
     }

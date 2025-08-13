@@ -1,11 +1,10 @@
 package com.example.user
 
+import com.example.dto.UserIdentity
 import org.koin.core.component.KoinComponent
-import java.util.UUID
 
-internal class DummyApiServerImpl(private val userId: UUID) : DummyApi(), KoinComponent {
+internal class DummyApiServerImpl(private val userIdentity: UserIdentity) : DummyApi(), KoinComponent {
     override suspend fun execute(request: Request): Response {
-        // userId is available for any per-user logic
-        return Response(message = "Dummy API. UserId: $userId")
+        return Response(message = "Dummy API. UserId: ${userIdentity.userId}. Privileges: ${userIdentity.privileges}")
     }
 }

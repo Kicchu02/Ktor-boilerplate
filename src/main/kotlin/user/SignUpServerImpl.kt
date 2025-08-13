@@ -41,5 +41,8 @@ internal class SignUpServerImpl : SignUp(), KoinComponent {
         if (isEmailExisting) {
             throw EmailAlreadyExistsException("Email id: ${request.emailId} already exists in the system.")
         }
+        if (!passwordUtils.isPasswordStrong(password = request.password)) {
+            throw SignUpException.InsecurePasswordException("Password is not secure")
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.user
 
 import com.example.DatabaseFactory
+import com.example.dto.UserIdentity
 import com.example.queries.FetchPrivilegesOfUser
 import com.example.queries.FetchWTExpiresAtAndUserIdOrNull
 import com.example.queries.UpdateWTExpireTime
@@ -13,7 +14,7 @@ import java.time.Instant
 internal class ValidateWTServerImpl : ValidateWT(), KoinComponent {
     private val config by inject<Config>()
     private val expirationDurationInSeconds = config.getLong("token.expirationDurationInSeconds")
-    private val expirationRefreshThreshold = config.getLong("token.expirationRefreshThreshold")
+    private val expirationRefreshThresholdInSeconds = config.getLong("token.expirationRefreshThresholdInSeconds")
     private val fetchPrivilegesOfUser by inject<FetchPrivilegesOfUser>()
     private val fetchWTExpiresAtAndUserIdOrNull by inject<FetchWTExpiresAtAndUserIdOrNull>()
     private val updateWTExpireTime by inject<UpdateWTExpireTime>()
@@ -28,7 +29,7 @@ internal class ValidateWTServerImpl : ValidateWT(), KoinComponent {
                     currentTime = currentTime,
                 ),
             ).userIdAndExpiresAt ?: throw InvalidWTException()
-            if (expiresAt < currentTime.plusSeconds(expirationRefreshThreshold)) {
+            if (expiresAt < currentTime.plusSeconds(expirationRefreshThresholdInSeconds)) {
                 updateWTExpireTime.execute(
                     ctx = ctx,
                     input = UpdateWTExpireTime.Input(
@@ -45,8 +46,10 @@ internal class ValidateWTServerImpl : ValidateWT(), KoinComponent {
                 ),
             ).privileges
             Response(
-                userId = userId,
-                privileges = userPrivileges,
+                userIdentity = UserIdentity(
+                    userId = userId,
+                    privileges = userPrivileges,
+                ),
             )
         }
     }

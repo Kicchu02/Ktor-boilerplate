@@ -22,8 +22,8 @@ abstract class SignIn : APIInterface<Request, Response> {
     @Serializable
     data object Response : APIResponse
 
-    sealed class SignInException : Exception() {
-        class InvalidEmailId : SignInException()
-        class InvalidPassword : SignInException()
+    sealed class SignInException(message: String? = null) : Exception(message) {
+        class InvalidEmailId(message: String? = null) : SignInException(message = message)
+        class InvalidPassword(message: String? = null) : SignInException(message = message)
     }
 }

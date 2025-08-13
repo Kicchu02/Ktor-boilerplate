@@ -4,6 +4,7 @@ import com.example.APIInterface
 import com.example.APIInterface.APIRequest
 import com.example.APIInterface.APIResponse
 import com.example.dto.SerializerUtils.UUIDSerializer
+import com.example.dto.UserIdentity
 import com.example.user.ValidateWT.Request
 import com.example.user.ValidateWT.Response
 import kotlinx.serialization.Serializable
@@ -18,12 +19,10 @@ abstract class ValidateWT : APIInterface<Request, Response> {
 
     @Serializable
     data class Response(
-        @Serializable(with = UUIDSerializer::class)
-        val userId: UUID,
-        val privileges: List<String>,
+        val userIdentity: UserIdentity,
     ) : APIResponse
 
-    sealed class ValidateWTException : RuntimeException() {
-        class InvalidWTException : ValidateWTException()
+    sealed class ValidateWTException(message: String? = null) : Exception(message) {
+        class InvalidWTException(message: String? = null) : ValidateWTException(message = message)
     }
 }

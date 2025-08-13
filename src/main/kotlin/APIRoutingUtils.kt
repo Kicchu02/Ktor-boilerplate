@@ -2,6 +2,7 @@ package com.example
 
 import com.example.APIInterface.APIRequest
 import com.example.APIInterface.APIResponse
+import com.example.dto.UserIdentity
 import com.example.user.ValidateWT
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
@@ -25,11 +26,12 @@ suspend fun ApplicationCall.requireWebToken(): UUID {
     return UUID.fromString(wt)
 }
 
-suspend fun ApplicationCall.validateAndGetUser(): ValidateWT.Response {
+suspend fun ApplicationCall.validateAndGetUserIdentity(): UserIdentity {
     val validateWT = GlobalContext.get().get<ValidateWT>()
     val wt = requireWebToken()
     return try {
-        validateWT.execute(ValidateWT.Request(wt = wt))
+        val response = validateWT.execute(ValidateWT.Request(wt = wt))
+        response.userIdentity
     } catch (exception: ValidateWT.ValidateWTException) {
         when (exception) {
             is ValidateWT.ValidateWTException.InvalidWTException -> {
@@ -43,7 +45,7 @@ suspend fun ApplicationCall.validateAndGetUser(): ValidateWT.Response {
 
 suspend inline fun <reified T : APIInterface<Req, Res>, Req : APIRequest, Res : APIResponse>
     ApplicationCall.executeAuthenticated(request: Req): Res {
-    val (userId, _) = validateAndGetUser()
-    val api = inject<T>(userId)
+    val userIdentity = validateAndGetUserIdentity()
+    val api = inject<T>(userIdentity)
     return api.execute(request)
 }

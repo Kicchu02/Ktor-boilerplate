@@ -29,5 +29,6 @@ abstract class SignUp : APIInterface<Request, Response> {
 
     sealed class SignUpException(message: String? = null) : Exception(message) {
         class EmailAlreadyExistsException(message: String? = null) : SignUpException(message = message)
+        class InsecurePasswordException(message: String? = null) : SignUpException(message = message)
     }
 }
