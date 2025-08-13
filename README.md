@@ -66,18 +66,15 @@ scripts\restart_db.bat
 
 ## Running the Application
 
-### 1. Build the Project
+### 1. Running the Application in IntelliJ IDEA
+
+This project is intended to be run using [IntelliJ IDEA](https://www.jetbrains.com/idea/). You can open the project folder in IntelliJ IDEA, let it import the Gradle project, and then run the application directly from the IDE. Make sure you have started the PostgreSQL database using the provided scripts before running the application.
+
+### 2. Build the Project
 
 ```bash
 # Build the project
 ./gradlew build
-```
-
-### 2. Run the Application
-
-```bash
-# Run in development mode
-./gradlew run
 ```
 
 ## Database Migrations
@@ -92,12 +89,4 @@ The project uses Flyway for database migrations. Database migration scripts are 
 
 ```bash
 ./gradlew spotlessApply
-```
-
-### JOOQ Code Generation
-
-JOOQ code is automatically generated in the scripts when building the project. The generated code provides type-safe database access using the database schema.
-
-```bash
-./gradlew generateJooq
 ```
