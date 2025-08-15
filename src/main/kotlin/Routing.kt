@@ -3,6 +3,7 @@ package com.example
 import com.example.dummy.apiInterfaces.DummyApi
 import com.example.user.apiInterfaces.SignIn
 import com.example.user.apiInterfaces.SignIn.SignInException
+import com.example.user.apiInterfaces.SignOut
 import com.example.user.apiInterfaces.SignUp
 import com.example.user.apiInterfaces.SignUp.SignUpException
 import io.ktor.http.HttpStatusCode
@@ -11,7 +12,6 @@ import io.ktor.server.request.receive
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
-import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
@@ -61,6 +61,12 @@ private fun Route.userRoutes() {
                 }
             }
         }
+    }
+    post("/signOut") {
+        val response = call.executeAuthenticated<SignOut, SignOut.Request, SignOut.Response>(
+            request = call.receive<SignOut.Request>(),
+        )
+        call.respond(message = response)
     }
 }
 
