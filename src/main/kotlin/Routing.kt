@@ -66,7 +66,7 @@ private fun Route.userRoutes() {
 
 private fun Route.dummyRoutes() {
     // Authenticated dummy API example
-    get("/dummy") {
+    post("/dummy") {
         val response = call.executeAuthenticated<DummyApi, DummyApi.Request, DummyApi.Response>(
             request = call.receive<DummyApi.Request>(),
         )

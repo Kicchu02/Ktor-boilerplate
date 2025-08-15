@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:latest
+    image: postgres:12
     container_name: demo_app_db
     environment:
       POSTGRES_USER: admin
