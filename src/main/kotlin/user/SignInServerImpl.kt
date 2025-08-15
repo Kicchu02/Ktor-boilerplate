@@ -48,7 +48,7 @@ internal class SignInServerImpl(private val call: ApplicationCall) : SignIn(), K
                     secure = false,
                 ),
             )
-            Response
+            Response(webToken = wt)
         }
     }
 
